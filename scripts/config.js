@@ -226,10 +226,10 @@ const builds = {
 }
 
 function genConfig(name) {
-  const opts = builds[name]
+  const opts = builds[name]  // 获取声明的对象
 
   // console.log('__dir', __dirname)
-  const config = {
+  const config = {  // rollup真实配置
     input: opts.entry,
     external: opts.external,
     plugins: [
@@ -300,5 +300,6 @@ if (process.env.TARGET) {
   module.exports = genConfig(process.env.TARGET)
 } else {
   exports.getBuild = genConfig
+  // 获取所有打包的配置  genConfig生成rollup的配置文件
   exports.getAllBuilds = () => Object.keys(builds).map(genConfig)
 }
