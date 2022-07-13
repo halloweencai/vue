@@ -10,7 +10,7 @@ export * from './element'
  * Query an element selector if it's not an element already.
  */
 export function query (el: string | Element): Element {
-  if (typeof el === 'string') {
+  if (typeof el === 'string') {  // 使用querySelector找到这个真实元素
     const selected = document.querySelector(el)
     if (!selected) {
       process.env.NODE_ENV !== 'production' && warn(

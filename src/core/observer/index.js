@@ -204,16 +204,19 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
   ) {
     warn(`Cannot set reactive property on undefined, null, or primitive value: ${(target: any)}`)
   }
+  // 数组的splice方法会触发视图更新，Vue.set(arr, 0, 100)
   if (Array.isArray(target) && isValidArrayIndex(key)) {
     target.length = Math.max(target.length, key)
     target.splice(key, 1, val)
     return val
   }
+  // 如果是对象，属性已经存在了，直接修改即可
   if (key in target && !(key in Object.prototype)) {
     target[key] = val
     return val
   }
   const ob = (target: any).__ob__
+  // 4.如果是vue实例或跟数据data时，报错
   if (target._isVue || (ob && ob.vmCount)) {
     process.env.NODE_ENV !== 'production' && warn(
       'Avoid adding reactive properties to a Vue instance or its root $data ' +
@@ -221,10 +224,12 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
     )
     return val
   }
+  // 5.如果不是响应式（观测的对象）的也不需要将其定义成响应式属性
   if (!ob) {
     target[key] = val
     return val
   }
+  // 定义响应式
   defineReactive(ob.value, key, val)
   ob.dep.notify()
   return val

@@ -13,7 +13,7 @@ const idToTemplate = cached(id => {
   const el = query(id)
   return el && el.innerHTML
 })
-
+// 函数劫持 aop 切片，增加将模版进行编译的逻辑
 const mount = Vue.prototype.$mount
 Vue.prototype.$mount = function (
   el?: string | Element,

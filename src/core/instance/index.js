@@ -14,10 +14,10 @@ function Vue (options) {
   this._init(options)
 }
 
-initMixin(Vue)
-stateMixin(Vue)
-eventsMixin(Vue)
-lifecycleMixin(Vue)
-renderMixin(Vue)
+initMixin(Vue)  // _init
+stateMixin(Vue)  // $set,$delete,$watch
+eventsMixin(Vue)  // $on,$emit,$off,$once
+lifecycleMixin(Vue)  // _update,  把虚拟dom变成真实dom
+renderMixin(Vue)  // _render  $nextTick
 
 export default Vue

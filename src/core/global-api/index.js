@@ -34,13 +34,16 @@ export function initGlobalAPI (Vue: GlobalAPI) {
   // exposed util methods.
   // NOTE: these are not considered part of the public API - avoid relying on
   // them unless you are aware of the risk.
+
+  // 这个util对象是vue的api，但是不建议用户使用，是给生态用的，比如vue-router
   Vue.util = {
     warn,
     extend,
     mergeOptions,
     defineReactive
   }
-
+  // 面试常问，对象只会拦截已经存在的属性
+  // 数组更新索引也是不会发生视图更新
   Vue.set = set
   Vue.delete = del
   Vue.nextTick = nextTick
